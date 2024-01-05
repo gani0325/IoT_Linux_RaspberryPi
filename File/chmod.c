@@ -34,6 +34,17 @@ int main(int argc, char **argv) {
 }
 
 /*
+gani@gani:~/raspi/File $ umask 0022
+gani@gani:~/raspi/File $ gcc -o chmod chmod.c
+gani@gani:~/raspi/File $ chmod g+x 4.txt
+gani@gani:~/raspi/File $ ls -l 4.txt 5.txt
+-rw-r-xr-- 1 gani gani 0  1월  5일  23:53 4.txt
+--w-r--rw- 1 gani gani 0  1월  5일  23:54 5.txt
+gani@gani:~/raspi/File $ ./chmod 4.txt 5.txt
+gani@gani:~/raspi/File $ ls -l 4.txt 5.txt
+-rw-r-Sr-- 1 gani gani 0  1월  5일  23:53 4.txt
+-rw-r--r-- 1 gani gani 0  1월  5일  23:54 5.txt
+
 첫 번째 파일은 그룹의 set-grout-ID 가 설정되고 실행 권한이 제거됨
 두 번째 파일은 644 권한으로 설정되어 있음
 */
