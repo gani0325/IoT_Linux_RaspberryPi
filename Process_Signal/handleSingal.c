@@ -96,4 +96,20 @@ ISGPIPE 함수는 signal() 함수 통해서 무시하도록 처리
 시그널 전달되면 정해진 방법대로 처리, 발생된 시그널이 전달되지 못하면 지연(pending) 상태 발생
 시그널이 블록되면 시그널의 블록이 해지되거나 무시하도록 변경될 때까지 지연된 상태로 남아 있음
 블록된 시그널은 시그널 마스크에 의해서 관리됨
+
+gani@gani:~/raspi/Process_Signal $ ./handleSignal &
+[2] 9803
+0010000000000000000000000000000001000000000000000000000000000000
+gani@gani:~/raspi/Process_Signal $ kill -USR1 9803
+SIGUSR1 is catched
+gani@gani:~/raspi/Process_Signal $ kill -USR2 9803
+SIGUSR2 is catched
+gani@gani:~/raspi/Process_Signal $ ./handleSignal
+0010000000000000000000000000000001000000000000000000000000000000
+^CSIGINT is catched : 2
+gani@gani:~/raspi/Process_Signal $ kill -s SIGPIPE 9803
+gani@gani:~/raspi/Process_Signal $ kill -s SIGQUIT 9803
+gani@gani:~/raspi/Process_Signal $ kill -s SIGTERM 9803
+[2]+  종료됨               ./handleSignal
+
 */
