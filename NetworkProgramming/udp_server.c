@@ -1,3 +1,4 @@
+// 소켓을 이용해서 UDP로 서로 통신하기
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -35,3 +36,17 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+/*
+서버는 클라이언트로부터 데이터를 받아서 그대로 다시 되돌려주는 에코 (ECHO) 서버
+
+socket() 함수에 SOCK_DGRAM 옵션을 사용해서 UDP를 위한 소켓의 파일 디스크립터를 연다
+해당 프로그램을 서버로 사용하기 위해서는 운영체제에 서비스를 등록해야 한다 -> bind()
+bind() 함수에 sockaddr_in 구조체를 사용해서 서버의 주소와 포트 번호를 설정한다
+설정하기 전에 sockaddr_in 구조체를 memset() 함수를 통해 0으로 초기화
+서버의 주소가 동적으로 바귀더라도 사용하기 쉽도록 INADDR_ANY 사용
+htonl() 와 htons() 함수를 이용해서 IP 주소와 포트 번호를 네트워크 순서로 엔디안 변경
+
+루프문 돌면서 클라이언트로부터 데이터를 받고, 받은 데이터를 sendto() 함수를 이용해서 다시 클라이언트로 전송
+클라이언트에서 문자열 'q' 가 오면 종료, 모든 작업이 끝나면 close() 함수로 소켓 닫기
+*/
