@@ -1,3 +1,4 @@
+// socketpair() 함수를 이용해서 두 프로세스 사이에 데이터를 교환한다 
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -10,7 +11,10 @@ int main(int argc, char **argv)
     int status;
     char buf[ ] = "Hello World", line[BUFSIZ];
     pid_t pid;
-
+    // socketpair() 함수는 2개의 소켓 디스크립터를 연다
+    // 2개의 int 형 소켓 디스크립터를 위한 배열을 생성한다
+    // 로컬 도메인만 사용 하므로 AF_LOCAL 혹은 AF_UNIX
+    // 스트림 통신을 위한 SOCKET_STREAM
     ret = socketpair(AF_LOCAL, SOCK_STREAM, 0, sock_fd); /* 한 쌍의 소켓을 생성 */
     if(ret == -1) {
         perror("socketpair()");
@@ -35,3 +39,8 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+/*
+gani@gani:~/raspi/NetworkProgramming $ gcc -o socketpair socketpair.c
+gani@gani:~/raspi/NetworkProgramming $ ./socketpair
+*/
